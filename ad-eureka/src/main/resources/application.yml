@@ -1,0 +1,49 @@
+spring:
+  profiles:
+    active: server1 #默认jar包使用spring配置
+
+---
+spring:
+  application:
+    name: ad-eureka #指定应用名字
+  profiles: server1 #用于java -jar时指定启动哪块的yml spring配置文件
+server:
+  port: 8000 #应用所占端口号
+eureka:
+  instance:
+    hostname: server1 #修改本地hosts文件，添加一行127.0.0.1 server1,避免注册时ip冲突
+    prefer-ip-address: false #用别名访问此eureka实例,而非ip
+  client:
+    service-url:
+      defaultZone: http://server2:8001/eureka/, http://server3:8002/eureka/ #三台eureka server相互注册，保证服务中心的高可用
+
+---
+spring:
+  application:
+    name: ad-eureka #指定应用名字
+  profiles: server2 #用于java -jar时指定启动哪块的yml spring配置文件
+server:
+  port: 8001 #应用所占端口号
+eureka:
+  instance:
+    hostname: server2
+    prefer-ip-address: false #用别名访问此eureka实例,而非ip
+  client:
+    service-url:
+      defaultZone: http://server1:8000/eureka/, http://server3:8002/eureka/
+
+---
+spring:
+  application:
+    name: ad-eureka #指定应用名字
+  profiles: server3 #用于java -jar时指定启动哪块的yml spring配置文件
+server:
+  port: 8002 #应用所占端口号
+eureka:
+  instance:
+    hostname: server3
+    prefer-ip-address: false #用别名访问此eureka实例,而非ip
+  client:
+    service-url:
+      defaultZone: http://server1:8000/eureka/, http://server2:8001/eureka/
+
