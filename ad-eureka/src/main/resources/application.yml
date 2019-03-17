@@ -1,6 +1,16 @@
 spring:
-  profiles:
-    active: server1 #默认jar包使用spring配置
+  application:
+    name: ad-eureka
+server:
+  port: 8000
+eureka:
+  instance:
+    hostname: localhost #开发环境仅使用一台eureka服务器
+  client:
+    fetch-registry: false # 是否与其他eureka服务器交换消息
+    register-with-eureka: false #自己不注册在eureka上
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
 
 ---
 spring:
