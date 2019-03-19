@@ -6,6 +6,7 @@
     <modules>
         <module>ad-eureka</module>
         <module>ad-gateway</module>
+        <module>ad-service</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -59,6 +60,10 @@
         </dependencies>
     </dependencyManagement>
 
+    <!--
+SpringBoot 的 Maven 插件, 能够以 Maven 的方式为应用提供 SpringBoot 的支持，可以将
+SpringBoot 应用打包为可执行的 jar 或 war 文件, 然后以通常的方式运行 SpringBoot 应用
+-->
     <build>
         <plugins>
             <plugin>
